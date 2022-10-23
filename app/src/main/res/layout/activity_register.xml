@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4C40C"
+    tools:context=".RegisterActivity"
+    tools:layout_editor_absoluteX="6dp"
+    tools:layout_editor_absoluteY="-97dp">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/banner2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="249dp"
+        android:layout_height="103dp"
+        android:layout_marginStart="73dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginBottom="47dp"
+        android:backgroundTint="@color/white"
+        android:text="הירשם"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_register"
+        tools:fontFamily="@font/david_libre"
+        tools:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="407dp"
+        android:layout_height="81dp"
+        android:fontFamily="@font/david_libre"
+        android:text="ברוכים הבאים לכוורת און ליין, אתר הקניות המקוון של רשת חנויות הנוחות של קרן לב!"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView_reg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/banner2" />
+
+    <TextView
+        android:id="@+id/textView_reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="272dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/david_libre"
+        android:text="צור שם משתמש:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/user_name_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="252dp"
+        android:fontFamily="@font/david_libre"
+        android:text="יש לך חשבון?"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textview_logn"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8_re"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="304dp"
+        android:layout_marginBottom="3dp"
+        android:fontFamily="@font/david_libre"
+        android:text="צור סיסמה:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/password_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_register" />
+
+    <EditText
+        android:id="@+id/user_name_register"
+        android:layout_width="393dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:ems="10"
+        android:fontFamily="@font/david_libre"
+        android:hint="שם משתמש"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/textView8_re"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_reg"
+        tools:ignore="TouchTargetSizeCheck"
+        android:textColorHint="@color/black" />
+
+    <EditText
+        android:id="@+id/password_register"
+        android:layout_width="413dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="11dp"
+        android:ems="10"
+        android:fontFamily="@font/david_libre"
+        android:gravity="end"
+        android:hint="סיסמה"
+        android:inputType="textPassword"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/button_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8_re"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/textview_logn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:fontFamily="@font/david_libre"
+        android:text="התחבר"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/banner2"
+        android:layout_width="407dp"
+        android:layout_height="95dp"
+        android:background="#FFFFFF"
+        android:text="הרשמה"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        android:fontFamily="@font/david_libre"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

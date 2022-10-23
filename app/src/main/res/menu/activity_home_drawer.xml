@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/baseline_store_24"
+            android:title="רשימת המוצרים" />
+        <item
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/baseline_shopping_cart_24"
+            android:title="סל קניות" />
+        <item
+            android:id="@+id/nav_bill"
+            android:icon="@drawable/baseline_credit_card_24"
+            android:title="חשבונית" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/log_out"
+            android:title="התנתק" />
+    </group>
+</menu>
