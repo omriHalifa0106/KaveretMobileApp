@@ -1,17 +1,21 @@
 package com.example.projectkaveretaplication.ViewHolder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectkaveretaplication.HomeActivity;
 import com.example.projectkaveretaplication.Product;
+import com.example.projectkaveretaplication.ProductDetailsActivity;
 import com.example.projectkaveretaplication.R;
 
 import java.io.IOException;
@@ -21,10 +25,12 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ProductViewHolder> {
     Context context;
     ArrayList<Product> products;
+    ArrayList<Product> products_in_shoppingCart;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Product> products) {
+    public RecyclerViewAdapter(Context context, ArrayList<Product> products,ArrayList<Product> products_in_shoppingCart) {
         this.context = context;
         this.products = products;
+        this.products_in_shoppingCart = products_in_shoppingCart;
     }
 
     @NonNull
@@ -50,6 +56,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         } catch (IOException e) {
             e.printStackTrace();
         }
+        holder.addToShoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,ProductDetailsActivity.class);
+                intent.putExtra("product_id",products.get(holder.getAdapterPosition()).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -59,14 +73,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
-
     public static class ProductViewHolder extends RecyclerView.ViewHolder
     {
         public TextView txtProductId;
         public TextView txtProductName;
         public ImageView imageView;
         public TextView txtProductPrice;
-
+        public Button addToShoppingCart;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +87,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             txtProductName = (TextView) itemView.findViewById(R.id.product_name);
             imageView = (ImageView) itemView.findViewById(R.id.product_image);
             txtProductPrice = (TextView) itemView.findViewById(R.id.product_price);
+            addToShoppingCart = (Button) itemView.findViewById(R.id.button_add_to_shopping_cart);
+
         }
 
     }

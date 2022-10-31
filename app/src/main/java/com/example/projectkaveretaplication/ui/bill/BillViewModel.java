@@ -10,7 +10,6 @@ public class BillViewModel extends ViewModel {
 
     public BillViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("חשבונית");
     }
 
     public LiveData<String> getText() {

@@ -1,6 +1,7 @@
 package com.example.projectkaveretaplication;
+import java.io.Serializable;
 
-public class Product {
+public class Product implements Serializable {
     private String id;
     private String product_name;
     private int price;
@@ -40,6 +41,31 @@ public class Product {
 
     public String getUrl_image() {
         return url_image;
+    }
+
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setUrl_image(String url_image) {
+        this.url_image = url_image;
     }
 
     @Override

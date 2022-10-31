@@ -24,8 +24,6 @@ public class BillFragment extends Fragment {
         binding = FragmentBillBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textBill;
-        billViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

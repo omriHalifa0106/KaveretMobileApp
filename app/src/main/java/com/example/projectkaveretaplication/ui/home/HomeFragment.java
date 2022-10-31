@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectkaveretaplication.Product;
+import com.example.projectkaveretaplication.ProductsManager;
 import com.example.projectkaveretaplication.R;
 import com.example.projectkaveretaplication.ViewHolder.RecyclerViewAdapter;
 import com.example.projectkaveretaplication.databinding.FragmentHomeBinding;
@@ -40,26 +41,21 @@ import org.json.JSONArray;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private ArrayList<Product> products = new ArrayList<Product>();
-    RecyclerView.LayoutManager layoutManager;
-
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Product> products = ProductsManager.getInstance().getProducts();
+    private ArrayList<Product> products_in_shoppingCart = ProductsManager.getInstance().getShoppingCart();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-        dataInitialize();
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy gfgPolicy =
-                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(gfgPolicy);
-        }
-
         layoutManager = new LinearLayoutManager(this.getContext());
         binding.mRecyclerViewProducts.setLayoutManager(layoutManager);
-        binding.mRecyclerViewProducts.setAdapter(new RecyclerViewAdapter(this.getContext(),products));
+        binding.mRecyclerViewProducts.setAdapter(new RecyclerViewAdapter(this.getContext(),products,products_in_shoppingCart));
+
 
         return root;
     }
@@ -67,45 +63,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    private void dataInitialize() {
-        OkHttpClient client = new OkHttpClient();
-        String urlGet = "http://10.0.2.2:8080/api/list-of-products";
-        System.out.println(urlGet);
-        Request request = new Request.Builder()
-                .url(urlGet)
-                .build(); // defaults to GET
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                //System.out.println(response.code() + " " +response.body().string());
-
-                ResponseBody responseBodyCopy = response.peekBody(Long.MAX_VALUE);
-                String productsStr = responseBodyCopy.string();
-                try {
-                    JSONArray array_products = new JSONArray(productsStr.substring(1,productsStr.length()-1).replace("\\",""));
-                    for(int i=0;i<array_products.length();i++)
-                    {
-                        JSONObject product  = array_products.getJSONObject(i);
-                        Product prod = new Product(product.getString("id"),product.getString("productName"),product.getInt("price"),product.getInt("quantity"),product.getString("category"),product.getString("productImgUrl"));
-                        products.add(prod);
-                    }
-
-                    for (Product prod : products) {
-                        System.out.println(prod);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
 
