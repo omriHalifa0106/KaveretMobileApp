@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         mButtomLogin = (Button) findViewById(R.id.button_login);
         mTextViewRegister = (TextView)  findViewById(R.id.textview_register);
 
+        //If the user does not yet have an account
         mTextViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,14 +43,18 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(registerIntent);
             }
         });
+
         mButtomLogin.setOnClickListener(new View.OnClickListener() {
+            //Sends a get request to the server that checks if the user's details
+            // are correct and he is indeed registered and connects
+            // with the correct username and password.
             @Override
             public void onClick(View view) {
                 String user_name = mTextUserName.getText().toString().trim();
                 String password = mTextPassword.getText().toString().trim();
                 String urlGet = "http://10.0.2.2:8080/api/sign-in?Username="+user_name+"&Password="+password;
                 System.out.println(urlGet);
-
+                //send get request
                 Request request = new Request.Builder()
                         .url(urlGet)
                         .build(); // defaults to GET
@@ -63,10 +68,10 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         System.out.println(response.code() +" "+response.body().string());
-                        if(response.code() == 200)
+                        if(response.code() == 200) // The user's details are correct
                         {
                             runOnUiThread(new Runnable() {
-
+                                //Displays a login success message and logged in to home page.
                                 public void run() {
                                     Toast.makeText(LoginActivity.this, "התחברת בהצלחה! מוועבר לדף הבית", Toast.LENGTH_SHORT).show();
                                     Intent  HomeIntent = new Intent(LoginActivity.this,HomeActivity.class);
@@ -76,16 +81,18 @@ public class LoginActivity extends AppCompatActivity {
                             });
 
                         }
-                        else if (response.code() == 400)
+                        else if (response.code() == 400)// The user's details are  incorrect
                         {
+                            //Displays a incorrect login message
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(LoginActivity.this,"שם המשתמש או הסיסמה קצרים מדי, נסה שוב!",Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
-                        else if(response.code() == 401)
+                        else if(response.code() == 401)// The user's details are  incorrect
                         {
+                            //Displays a incorrect login message
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(LoginActivity.this,"שם המשתמש או הסיסמה לא נכונים, נסה שוב!",Toast.LENGTH_SHORT).show();

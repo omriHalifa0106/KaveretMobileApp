@@ -1,7 +1,5 @@
 package com.example.projectkaveretaplication;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -53,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
 
+    //Gets the products and the shopping cart from the singleton class.
     private ArrayList<Product> products = ProductsManager.getInstance().getProducts();
     private ArrayList<Product> products_in_shoppingCart = ProductsManager.getInstance().getShoppingCart();
 
@@ -68,10 +69,16 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarHome.toolbar);
 
+        //click on shopping cart button will change fragment to cart fragment.
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Fragment fragment = new CartFragment();
 
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.nav_cart, fragment);
+                transaction.commit();
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -94,45 +101,45 @@ public class HomeActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if(destination.getId() == R.id.nav_home)
+                if(destination.getId() == R.id.nav_home) // if click on home page, move to home fragment.
                 {
                     System.out.println("Click on home page!");
                 }
-                if(destination.getId() == R.id.nav_cart)
+                if(destination.getId() == R.id.nav_cart)// if click on cart page, move to cart fragment.
                 {
                     System.out.println("Click on cart page!");
                 }
-                if (destination.getId() == R.id.nav_bill)
+                if (destination.getId() == R.id.nav_bill)// if click on bill page, move to bill fragment.
                 {
                     System.out.println("Click on bill page!");
                 }
-                if (destination.getId() == R.id.nav_logout)
+                if (destination.getId() == R.id.nav_logout)// if click on log out, move to login activity.
                 {
                     System.out.println("Click on log out!");
                     Intent intent = new Intent(HomeActivity.this,MainActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent); // change activity to login page.
                 }
 
             }
 
         });
 
-
-
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
-
+        // after login, change user name display to user name that logged in.
         System.out.println(getIntent().getStringExtra("user_name"));
         userNameTextView.setText(getIntent().getStringExtra("user_name"));
 
+        //fix for ‘android.os.NetworkOnMainThreadException’
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy gfgPolicy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
         }
 
-        recyclerViev_Products = (RecyclerView) findViewById(R.id.mRecyclerView_Products);
+        recyclerViev_Products = (RecyclerView) findViewById(R.id.mRecyclerView_Products); //recyclerView for products in home activity.
+        // get products from singleton class and build recyclerViewAdapter that display the products:
         recyclerViev_Products.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerViev_Products.setLayoutManager(layoutManager);
@@ -140,6 +147,7 @@ public class HomeActivity extends AppCompatActivity {
 
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,products,products_in_shoppingCart)
         {
+            //change for each product in recyclerView details.
             @Override
             public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
                 holder.txtProductId.setText("#" + products.get(position).getId() );
@@ -155,6 +163,7 @@ public class HomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intent = new Intent(HomeActivity.this,ProductDetailsActivity.class);
                         intent.putExtra("product_id",products.get(holder.getAdapterPosition()).getId());
+                        intent.putExtra("user_name",getIntent().getStringExtra("user_name"));
                         startActivity(intent);
                     }
                 });
@@ -174,6 +183,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
         recyclerViev_Products.setAdapter(adapter);
+
     }
 
     @Override

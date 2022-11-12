@@ -72,7 +72,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
-
     public static class ProductViewHolder extends RecyclerView.ViewHolder
     {
         public TextView txtProductId;

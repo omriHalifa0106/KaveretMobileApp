@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
         mButtomRegister = (Button) findViewById(R.id.button_register);
         mTextViewLogin = (TextView)  findViewById(R.id.textview_logn);
 
-
+        //If the user have an account
         mTextViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         mButtomRegister.setOnClickListener(new View.OnClickListener() {
+            //Sends a get request to the server that checks if the user's details
+            //are valid and if the user doesn't exist.
             @Override
             public void onClick(View view) {
                 String user_name = mTextUserName.getText().toString().trim();
@@ -65,21 +67,22 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         System.out.println(response.code() + " " + response.body().string());
-                        if (response.code() == 200) {
+                        if (response.code() == 200) {// The user's details are correct
                             runOnUiThread(new Runnable() {
+                                //Displays a register success message and move to login page
                                 public void run() {
                                     Toast.makeText(RegisterActivity.this, "נרשמת בהצלחה! מוועבר להתחברות", Toast.LENGTH_SHORT).show();
                                     Intent loginIntent = new Intent(RegisterActivity.this,LoginActivity.class);
                                     startActivity(loginIntent);
                                 }
                             });
-                        } else if (response.code() == 400) {
+                        } else if (response.code() == 400) {//Displays a incorrect register message
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(RegisterActivity.this, "שם המשתמש או הסיסמה קצרים מדי, נסה שוב!", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        } else if (response.code() == 401) {
+                        } else if (response.code() == 401) {//Displays a incorrect register message
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(RegisterActivity.this, "שם המשתמש קיים,נסה שוב!", Toast.LENGTH_SHORT).show();
