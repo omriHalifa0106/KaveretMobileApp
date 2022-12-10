@@ -7,30 +7,41 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.projectkaveretaplication.HomeActivity;
+import com.example.projectkaveretaplication.EditProductAdminActivity;
 import com.example.projectkaveretaplication.Product;
 import com.example.projectkaveretaplication.ProductDetailsActivity;
+import com.example.projectkaveretaplication.ProductsManager;
 import com.example.projectkaveretaplication.R;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ProductViewHolder> {
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ProductViewHolder> implements Filterable {
     Context context;
     ArrayList<Product> products;
     ArrayList<Product> products_in_shoppingCart;
+    ArrayList<Product> getProducts;
 
     public RecyclerViewAdapter(Context context, ArrayList<Product> products,ArrayList<Product> products_in_shoppingCart) {
         this.context = context;
         this.products = products;
         this.products_in_shoppingCart = products_in_shoppingCart;
+        this.getProducts = new ArrayList<>(products);
     }
 
     @NonNull
@@ -64,12 +75,127 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 context.startActivity(intent);
             }
         });
+        if(ProductsManager.getInstance().isAdmin()) {
+            holder.editProduct.setVisibility(View.VISIBLE);
+            holder.editProduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, EditProductAdminActivity.class);
+                    intent.putExtra("product_id",products.get(holder.getAdapterPosition()).getId());
+                    context.startActivity(intent);
+                }
+            });
+            holder.removeProduct.setVisibility(View.VISIBLE);
+            holder.removeProduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SendPostRequest(products.get(holder.getAdapterPosition()));
+                    products.remove(products.get(holder.getAdapterPosition()));
+                    ProductsManager.getInstance().setProducts(products);
+                    notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
         return products.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        Filter filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                FilterResults filterResults = new FilterResults();
+                if(charSequence == null || charSequence.length() == 0 )
+                {
+                    filterResults.values = getProducts;
+                    filterResults.count =getProducts.size();
+                }
+                else
+                {
+                    String searchStr = charSequence.toString().trim();
+                    ArrayList<Product> products_filtering = new ArrayList<Product>();
+                    for(Product prod: products)
+                    {
+                        if(prod.getProduct_name().contains(searchStr))
+                            products_filtering.add(prod);
+                    }
+                    filterResults.values = products_filtering;
+                    filterResults.count =products_filtering.size();
+                }
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                products = (ArrayList<Product>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+        return filter;
+    }
+
+
+    public Filter getFilterCategory() {
+        System.out.println("Im here!");
+        Filter filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence category) {
+                FilterResults filterResults = new FilterResults();
+                if(category == null || category.length() == 0 )
+                {
+                    filterResults.values = getProducts;
+                    filterResults.count =getProducts.size();
+                }
+                else
+                {
+                    String categoryStr = category.toString().trim();
+                    ArrayList<Product> products_filtering = new ArrayList<Product>();
+                    for(Product prod: products)
+                    {
+                        if(prod.getCategory().contains(categoryStr))
+                            products_filtering.add(prod);
+                    }
+                    filterResults.values = products_filtering;
+                    filterResults.count =products_filtering.size();
+                }
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                products = (ArrayList<Product>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+        return filter;
+    }
+
+    public void SendPostRequest(Product prod)
+    {
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        // put your json here
+        RequestBody body = RequestBody.create(JSON, prod.getJSONObjectRemoveProduct().toString());
+        Request request = new Request.Builder()
+                .url("http://10.0.2.2:8080/api/list-of-products")
+                .post(body)
+                .build();
+
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+            String resStr = response.body().string();
+            System.out.println(resStr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder
@@ -79,6 +205,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ImageView imageView;
         public TextView txtProductPrice;
         public Button addToShoppingCart;
+        public Button editProduct;
+        public Button removeProduct;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +215,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             imageView = (ImageView) itemView.findViewById(R.id.product_image);
             txtProductPrice = (TextView) itemView.findViewById(R.id.product_price);
             addToShoppingCart = (Button) itemView.findViewById(R.id.button_add_to_shopping_cart);
+            editProduct = (Button) itemView.findViewById(R.id.button_edit_admin_product);
+            removeProduct = (Button) itemView.findViewById(R.id.button_remove_admin_product);
 
         }
 

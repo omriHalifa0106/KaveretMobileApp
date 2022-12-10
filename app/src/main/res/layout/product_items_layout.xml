@@ -66,6 +66,36 @@
             android:textColor="@color/black"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/button_edit_admin_product"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_add_to_shopping_cart"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="11dp"
+            android:backgroundTint="#4CAF50"
+            android:fontFamily="@font/david_libre"
+            android:text="ערוך מוצר"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_remove_admin_product"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_add_to_shopping_cart"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="201dp"
+            android:backgroundTint="#F40C0C"
+            android:fontFamily="@font/david_libre"
+            android:text="מחק מוצר"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
     </RelativeLayout>
 
 

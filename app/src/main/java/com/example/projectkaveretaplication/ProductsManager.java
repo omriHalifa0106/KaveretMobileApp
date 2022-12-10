@@ -1,6 +1,7 @@
 package com.example.projectkaveretaplication;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,21 +26,34 @@ and to load the products only once.
 
 // singleton Manager
 public class ProductsManager {
-    private static ProductsManager sInstance;
+     private static ProductsManager sInstance;
     private ArrayList<Product> products;
     private ArrayList<Product> shoppingCart;
+    private String user_name;
+    private boolean isAdmin;
 
     // private constructor to limit new instance creation
-    private ProductsManager() {
+    private ProductsManager(String user_name,String isAdmin) {
         products = new ArrayList<Product>();
         shoppingCart = new ArrayList<Product>();
         dataInitialize(); //Loads the product list only once per project.
+        this.user_name = user_name;
+        if (isAdmin.contains("true")) {
+            this.isAdmin = true;
+        } else {
+            this.isAdmin = false;
+        }
     }
 
-    public static ProductsManager getInstance() {
+    public static ProductsManager getInstance(String user_name,String isAdmin) {
         if (sInstance == null) { //If no instance of the class exists
-            sInstance = new ProductsManager();
+            sInstance = new ProductsManager(user_name,isAdmin);
         }
+        return sInstance;
+    }
+
+
+    public static ProductsManager getInstance() {
         return sInstance;
     }
 
@@ -49,6 +63,19 @@ public class ProductsManager {
 
     public ArrayList<Product> getShoppingCart() {
         return shoppingCart;
+    }
+
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public void setProducts(ArrayList<Product> products) {

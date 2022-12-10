@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,10 +57,7 @@ public class HomeActivity extends AppCompatActivity {
     //Gets the products and the shopping cart from the singleton class.
     private ArrayList<Product> products = ProductsManager.getInstance().getProducts();
     private ArrayList<Product> products_in_shoppingCart = ProductsManager.getInstance().getShoppingCart();
-
-    private RecyclerView recyclerViev_Products;
-    RecyclerView.LayoutManager layoutManager;
-
+    private String user_name = ProductsManager.getInstance().getUser_name();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,10 +85,14 @@ public class HomeActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
 
         navigationView.setNavigationItemSelectedListener( navigationView.findViewById(R.id.nav_home));
+        navigationView.getMenu().findItem(R.id.nav_admin).setVisible(false);
+
+        if(ProductsManager.getInstance().isAdmin())
+            navigationView.getMenu().findItem(R.id.nav_admin).setVisible(true);
 
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_cart, R.id.nav_bill,R.id.nav_logout)
+                R.id.nav_home, R.id.nav_cart, R.id.nav_bill,R.id.nav_admin,R.id.nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -113,6 +115,10 @@ public class HomeActivity extends AppCompatActivity {
                 {
                     System.out.println("Click on bill page!");
                 }
+                if (destination.getId() == R.id.nav_admin)// if click on admin page, move to admin fragment.
+                {
+                    System.out.println("Click on admin page!");
+                }
                 if (destination.getId() == R.id.nav_logout)// if click on log out, move to login activity.
                 {
                     System.out.println("Click on log out!");
@@ -128,8 +134,7 @@ public class HomeActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
         // after login, change user name display to user name that logged in.
-        System.out.println(getIntent().getStringExtra("user_name"));
-        userNameTextView.setText(getIntent().getStringExtra("user_name"));
+        userNameTextView.setText(user_name = ProductsManager.getInstance().getUser_name());
 
         //fix for ‘android.os.NetworkOnMainThreadException’
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -137,52 +142,6 @@ public class HomeActivity extends AppCompatActivity {
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
         }
-
-        recyclerViev_Products = (RecyclerView) findViewById(R.id.mRecyclerView_Products); //recyclerView for products in home activity.
-        // get products from singleton class and build recyclerViewAdapter that display the products:
-        recyclerViev_Products.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerViev_Products.setLayoutManager(layoutManager);
-        recyclerViev_Products.setAdapter(new RecyclerViewAdapter(this,products,products_in_shoppingCart));
-
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,products,products_in_shoppingCart)
-        {
-            //change for each product in recyclerView details.
-            @Override
-            public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-                holder.txtProductId.setText("#" + products.get(position).getId() );
-                holder.txtProductName.setText(products.get(position).getProduct_name()) ;
-                holder.txtProductPrice.setText(Integer.toString(products.get(position).getPrice())+ " שקלים");
-                try {
-                    holder.imageView.setImageBitmap(BitmapFactory.decodeStream(new URL(products.get(position).getUrl_image()).openConnection().getInputStream()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                holder.addToShoppingCart.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(HomeActivity.this,ProductDetailsActivity.class);
-                        intent.putExtra("product_id",products.get(holder.getAdapterPosition()).getId());
-                        intent.putExtra("user_name",getIntent().getStringExtra("user_name"));
-                        startActivity(intent);
-                    }
-                });
-            }
-
-            @NonNull
-            @Override
-            public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                try {
-                    View view = inflater.inflate(R.layout.product_items_layout,parent,false);
-                    return new RecyclerViewAdapter.ProductViewHolder(view);
-                } catch (Exception e)
-                {
-                    throw e;
-                }
-            }
-        };
-        recyclerViev_Products.setAdapter(adapter);
 
     }
 

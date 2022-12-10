@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SortAndFilterActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="26dp">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/david_libre"
+            android:text="מיונים וסינונים"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="123dp"
+            android:background="#F4C40C"
+            android:fontFamily="@font/david_libre"
+            android:text=" מיין על פי..."
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id= "@+id/sorting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="196dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/low_to_high_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="לפי מחיר, מהנמוך לגבוה" />
+
+            <RadioButton
+                android:id="@+id/high_to_low_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="לפי מחיר, מהגבוה לנמוך" />
+
+            <RadioButton
+                android:id="@+id/abc_order_ascending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="לפי שם, בסדר עולה" />
+
+            <RadioButton
+                android:id="@+id/abc_order_descending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="לפי שם, בסדר יורד" />
+
+            <RadioButton
+                android:id="@+id/without_sorting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="ללא מיון" />
+
+
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="464dp"
+            android:background="#F4C40C"
+            android:fontFamily="@font/david_libre"
+            android:text=" סנן על פי..."
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:layout_below="@id/sorting"
+            android:textStyle="bold" />
+
+
+        <RadioGroup
+            android:layout_width="144dp"
+            android:layout_height="85dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="517dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/prices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="טווח מחירים" />
+
+            <RadioButton
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="קטגוריות" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/show_result_button"
+            android:layout_width="441dp"
+            android:layout_height="39dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="37dp"
+            android:backgroundTint="#F4C40C"
+            android:fontFamily="@font/david_libre"
+            android:text="הצג תוצאות"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/editTextCategory"
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="43dp"
+            android:layout_marginBottom="86dp"
+            android:ems="10"
+            android:fontFamily="@font/david_libre"
+            android:hint="בחר קטגוריה"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            android:visibility="invisible"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/editTextMinPrice"
+            android:layout_width="106dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="158dp"
+            android:layout_marginBottom="133dp"
+            android:ems="10"
+            android:fontFamily="@font/david_libre"
+            android:hint="ממחיר"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            android:visibility="invisible"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/editTextMaxPrice"
+            android:layout_width="106dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="134dp"
+            android:ems="10"
+            android:fontFamily="@font/david_libre"
+            android:hint="עד מחיר"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            android:visibility="invisible"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

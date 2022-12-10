@@ -51,7 +51,7 @@ public class RecyclerViewAdapterBill extends RecyclerView.Adapter<RecyclerViewAd
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapterBill.ProductBillViewHolder holder, int position) {
         holder.txtProductId.setText("#" + products_in_shoppingCart.get(holder.getAdapterPosition()).getId() );
-        holder.txtProductName.setText(products.get(holder.getAdapterPosition()).getProduct_name()) ;
+        holder.txtProductName.setText(products_in_shoppingCart.get(holder.getAdapterPosition()).getProduct_name()) ;
         holder.txtProductPrice.setText(Integer.toString(products_in_shoppingCart.get(holder.getAdapterPosition()).getPrice())+ " שקלים");
         holder.txtProductQuantity.setText("כמות: "+Integer.toString(products_in_shoppingCart.get(holder.getAdapterPosition()).getQuantity()));
         holder.txtProductSumPay.setText("סך הכל לתשלום על מוצר זה: " +Integer.toString(products_in_shoppingCart.get(holder.getAdapterPosition()).getQuantity()*products_in_shoppingCart.get(holder.getAdapterPosition()).getPrice()) + " שקלים ");

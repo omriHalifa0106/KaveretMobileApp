@@ -23,5 +23,6 @@
     <string name="menu_home">רשימת המוצרים</string>
     <string name="menu_gallery">סל הקניות</string>
     <string name="menu_slideshow">חשבונית</string>
+    <string name="menu_admin">הרשאות מנהל</string>
     <string name="title_activity_shopping_cart">shoppingCartActivity</string>
 </resources>

@@ -18,8 +18,15 @@
             android:title="חשבונית" />
 
         <item
+            android:id="@+id/nav_admin"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="הרשאות מנהל" />
+
+
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/log_out"
             android:title="התנתק" />
+
     </group>
 </menu>

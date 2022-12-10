@@ -51,7 +51,7 @@ public class RecyclerViewAdapterShoppingCart extends RecyclerView.Adapter<Recycl
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapterShoppingCart.ProductCartViewHolder holder, int position) {
         holder.txtProductId.setText("#" + products_in_shoppingCart.get(holder.getAdapterPosition()).getId() );
-        holder.txtProductName.setText(products.get(holder.getAdapterPosition()).getProduct_name()) ;
+        holder.txtProductName.setText(products_in_shoppingCart.get(holder.getAdapterPosition()).getProduct_name()) ;
         holder.txtProductPrice.setText(Integer.toString(products_in_shoppingCart.get(holder.getAdapterPosition()).getPrice())+ " שקלים");
         try {
             holder.imageView.setImageBitmap(BitmapFactory.decodeStream(new URL(products_in_shoppingCart.get(holder.getAdapterPosition()).getUrl_image()).openConnection().getInputStream()));
@@ -82,7 +82,6 @@ public class RecyclerViewAdapterShoppingCart extends RecyclerView.Adapter<Recycl
                     products.set(Integer.parseInt(products_in_shoppingCart.get(holder.getAdapterPosition()).getId())-1,products_in_shoppingCart.get(holder.getAdapterPosition()));
                     holder.txtProductQuantity.setText("כמות: " + products_in_shoppingCart.get(holder.getAdapterPosition()).getQuantity());
                     products_in_shoppingCart.remove(products_in_shoppingCart.get(holder.getAdapterPosition()));
-                    //holder.itemView.setVisibility(View.GONE);
                     notifyItemRemoved(holder.getAdapterPosition());
                     notifyItemRangeChanged(holder.getAdapterPosition(), products_in_shoppingCart.size());
                 }

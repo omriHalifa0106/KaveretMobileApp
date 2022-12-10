@@ -11,12 +11,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.projectkaveretaplication.classes.Bill;
+import com.example.projectkaveretaplication.classes.RecentEntries;
+
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
@@ -67,16 +72,19 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                        System.out.println(response.code() +" "+response.body().string());
+                       // System.out.println(response.code() +" "+response.body().string());
+                        String isAdmin =  response.peekBody(2048).string().substring(response.peekBody(2048).string().indexOf("isAdmin"),response.peekBody(2048).string().indexOf(",")).split(":")[1];
                         if(response.code() == 200) // The user's details are correct
                         {
+                            SendPostRequest(new RecentEntries(user_name ));
                             runOnUiThread(new Runnable() {
                                 //Displays a login success message and logged in to home page.
                                 public void run() {
                                     Toast.makeText(LoginActivity.this, "התחברת בהצלחה! מוועבר לדף הבית", Toast.LENGTH_SHORT).show();
                                     Intent  HomeIntent = new Intent(LoginActivity.this,HomeActivity.class);
-                                    HomeIntent.putExtra("user_name",user_name);
+                                    HomeIntent.putExtra("user_name",ProductsManager.getInstance(user_name,isAdmin).getUser_name());
                                     startActivity(HomeIntent);
+
                                 }
                             });
 
@@ -105,5 +113,27 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void SendPostRequest(RecentEntries entry)
+    {
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        // put your json here
+        RequestBody body = RequestBody.create(JSON, entry.getJSONObject().toString());
+        Request request = new Request.Builder()
+                .url("http://10.0.2.2:8080/api/administrator")
+                .post(body)
+                .build();
+
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+            String resStr = response.body().string();
+            System.out.println(resStr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -14,25 +14,32 @@
         <entry key="..\:/Maof/excercise3/app/src/main/res/drawable/side_nav_bar.xml" value="0.171" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/font/.xml" value="0.168875587858059" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/font/david_libre.xml" value="0.1" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_add_product_admin.xml" value="0.22" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_edit_product.xml" value="0.297990594271056" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_login.xml" value="0.14666666666666667" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_product_details.xml" value="0.14666666666666667" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_shopping_cart.xml" value="0.1182615963226076" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_show_bills_admin.xml" value="0.16666666666666666" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_show_recent_enteries.xml" value="0.22" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/activity_sort_and_filter.xml" value="0.3333333333333333" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/app_bar_home.xml" value="0.16666666666666666" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/content_home.xml" value="0.21504916631038906" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/content_home2.xml" value="0.14666666666666667" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/fragment_admin.xml" value="0.25203989120580234" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/fragment_bill.xml" value="0.22" />
-        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/fragment_cart.xml" value="0.2278751603249252" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/fragment_cart.xml" value="0.16666666666666666" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/fragment_gallery.xml" value="0.18896964514749892" />
-        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/fragment_home.xml" value="0.14666666666666667" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/fragment_login.xml" value="0.16666666666666666" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/fragment_slideshow.xml" value="0.2291577597263788" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/nav_header_home.xml" value="0.22" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/product_bill.xml" value="0.22" />
-        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/product_items_layout.xml" value="0.21724137931034482" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/product_items_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/layout/product_shop_cart_layout.xml" value="0.16666666666666666" />
+        <entry key="..\:/Maof/excercise3/app/src/main/res/layout/recent_entry.xml" value="0.23899102180418982" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/menu/activity_home_drawer.xml" value="0.6" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/menu/activity_main_drawer.xml" value="0.18896964514749892" />
         <entry key="..\:/Maof/excercise3/app/src/main/res/menu/home.xml" value="0.18896964514749892" />

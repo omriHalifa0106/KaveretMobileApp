@@ -15,60 +15,40 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/product_id_bill"
+            android:id="@+id/id_last_entry"
+            android:background="#F4C40C"
             android:layout_width="match_parent"
             android:layout_height="29dp"
             android:fontFamily="@font/david_libre"
-            android:text="מספר מוצר"
+            android:text="תעודת זהות"
             android:textColor="@color/black"
             android:textSize="15dp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/product_name_bill"
+            android:id="@+id/username_last_entry"
             android:layout_width="441dp"
             android:layout_height="39dp"
-            android:layout_below="@+id/product_id_bill"
+            android:layout_below="@+id/id_last_entry"
             android:fontFamily="@font/david_libre"
-            android:text="שם המוצר"
+            android:text="שם משתמש"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
 
 
         <TextView
-            android:id="@+id/product_price_bill"
+            android:id="@+id/date_last_entry"
             android:layout_width="441dp"
             android:layout_height="39dp"
-            android:layout_below="@+id/product_name_bill"
+            android:layout_below="@+id/username_last_entry"
             android:fontFamily="@font/david_libre"
-            android:text="מחיר מוצר"
+            android:text="תאריך כניסה"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/product_quantity_bill"
-            android:layout_width="441dp"
-            android:layout_height="39dp"
-            android:layout_below="@+id/product_price_bill"
-            android:fontFamily="@font/david_libre"
-            android:text="כמות מוצר"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/product_sum_bill"
-            android:layout_width="441dp"
-            android:layout_height="39dp"
-            android:layout_below="@+id/product_quantity_bill"
-            android:background="#F4C40C"
-            android:fontFamily="@font/david_libre"
-            android:text="סך הכל לתשלום למוצר זה"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
 
 
     </RelativeLayout>
