@@ -52,7 +52,13 @@ public class Bill {
         this.sum = sum;
     }
 
+    public String getItems() {
+        return items;
+    }
 
+    public void setItems(String items) {
+        this.items = items;
+    }
 
     public JSONObject getJSONObject() {
         JSONObject obj = new JSONObject();

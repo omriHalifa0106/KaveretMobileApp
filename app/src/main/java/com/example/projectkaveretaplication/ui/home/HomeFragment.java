@@ -59,11 +59,12 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         adapter = new RecyclerViewAdapter(this.getContext(),products,products_in_shoppingCart);
-
+        //RecyclerView to show the products . (from products)
         layoutManager = new LinearLayoutManager(this.getContext());
         binding.mRecyclerViewProducts.setLayoutManager(layoutManager);
         binding.mRecyclerViewProducts.setAdapter(adapter);
 
+        //search product option.
         binding.searchProduct.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -78,7 +79,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
+        //if the user wants to sort or filter products, move to sort and filtering page.
         binding.buttonSortAndFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

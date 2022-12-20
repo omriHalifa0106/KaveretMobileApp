@@ -75,7 +75,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 context.startActivity(intent);
             }
         });
-        if(ProductsManager.getInstance().isAdmin()) {
+        if(ProductsManager.getInstance().isAdmin()) { // if the user is Admin, show options of edit and remove product.
             holder.editProduct.setVisibility(View.VISIBLE);
             holder.editProduct.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,10 +89,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.removeProduct.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    SendPostRequest(products.get(holder.getAdapterPosition()));
-                    products.remove(products.get(holder.getAdapterPosition()));
-                    ProductsManager.getInstance().setProducts(products);
-                    notifyDataSetChanged();
+                    SendPostRequest(products.get(holder.getAdapterPosition())); // sent to the server.
+                    products.remove(products.get(holder.getAdapterPosition())); // remove product that choose from arraylist of products.
+                    ProductsManager.getInstance().setProducts(products); // updated all products.
+                    notifyDataSetChanged(); // updated RecyclerView of products.
                 }
             });
         }
@@ -103,6 +103,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return products.size();
     }
 
+
+    /*
+    This function is filtering on products in RecyclerView products, by search option,
+    If the product name contains the user's search, show it.
+     */
     @Override
     public Filter getFilter() {
         Filter filter = new Filter() {
@@ -138,9 +143,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return filter;
     }
 
-
+    /*
+    This function is filtering on products in RecyclerView products, by category filter option,
+    If the product category contains the user's input, show it.
+     */
     public Filter getFilterCategory() {
-        System.out.println("Im here!");
         Filter filter = new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence category) {
@@ -173,12 +180,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         };
         return filter;
     }
-
+    /*
+    this function send POST request to the server.
+    the function receive product and sent it to the server and remove product in database.
+     */
     public void SendPostRequest(Product prod)
     {
         OkHttpClient client = new OkHttpClient();
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        // put your json here
         RequestBody body = RequestBody.create(JSON, prod.getJSONObjectRemoveProduct().toString());
         Request request = new Request.Builder()
                 .url("http://10.0.2.2:8080/api/list-of-products")

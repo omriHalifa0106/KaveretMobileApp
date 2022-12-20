@@ -63,10 +63,13 @@ public class BillFragment extends Fragment {
         View root = binding.getRoot();
 
 
+        //RecyclerView to show the bills. (from products_in_shoppingCart)
         layoutManager = new LinearLayoutManager(this.getContext());
         binding.mRecyclerViewBillProducts.setLayoutManager(layoutManager);
         binding.mRecyclerViewBillProducts.setAdapter(new RecyclerViewAdapterBill(this.getContext(),products,products_in_shoppingCart));
 
+
+        //calculate the total price.
         total_price = 0;
         for (Product prod : products_in_shoppingCart) {
             if(prod.getQuantity() > 0)
@@ -75,6 +78,7 @@ public class BillFragment extends Fragment {
             }
         }
 
+        //if products_in_shoppingCart is not null, show products and total price.
         if(products_in_shoppingCart.size() > 0)
         {
             binding.totalPrice.setVisibility(View.VISIBLE);
@@ -118,12 +122,15 @@ public class BillFragment extends Fragment {
         return root;
     }
 
+    /*
+    this function send POST request to the server.
+    the function receive bill and sent it to the server and save bill in database.
+     */
 
     public void SendPostRequest(Bill bill)
     {
         OkHttpClient client = new OkHttpClient();
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        // put your json here
         RequestBody body = RequestBody.create(JSON, bill.getJSONObject().toString());
         Request request = new Request.Builder()
                 .url("http://10.0.2.2:8080/api/bill")

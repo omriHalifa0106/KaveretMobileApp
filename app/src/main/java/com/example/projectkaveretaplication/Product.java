@@ -84,6 +84,11 @@ public class Product implements Serializable {
                 '}';
     }
 
+    /*
+    this functions for sent json data with the fields of Product.
+     */
+
+
     public JSONObject getJSONObjectAddProduct() {
         JSONObject obj = new JSONObject();
         try {

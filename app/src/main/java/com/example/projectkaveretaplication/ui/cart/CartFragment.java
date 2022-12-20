@@ -40,14 +40,15 @@ public class CartFragment extends Fragment {
         binding = FragmentCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
+        //RecyclerView to show the product in cart. (from products_in_shoppingCart)
         layoutManager = new LinearLayoutManager(this.getContext());
         binding.mRecyclerViewShoppingCartProducts.setLayoutManager(layoutManager);
         binding.mRecyclerViewShoppingCartProducts.setAdapter(new RecyclerViewAdapterShoppingCart(this.getContext(),products,products_in_shoppingCart));
 
-
+        //if products_in_shoppingCart is not null, show.
         if(products_in_shoppingCart.size() > 0)
         {
+            //if the user want to remove all products from shopping cart.
             binding.button5.setVisibility(View.VISIBLE);
             binding.button5.setOnClickListener(new View.OnClickListener() {
                 @Override

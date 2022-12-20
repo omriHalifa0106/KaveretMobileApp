@@ -48,7 +48,7 @@ public class AddProductAdminActivity extends AppCompatActivity {
         });
     }
 
-
+    //this function add product to products after validation check.
     private void addProductToProducts() {
         if(productName.getText().toString().isEmpty())
         {
@@ -76,6 +76,7 @@ public class AddProductAdminActivity extends AppCompatActivity {
         }
         else
         {
+            //if the fields are correct, add product to products and to the database.
             Product productToAdd = new Product(Integer.toString(products.size() + 1),productName.getText().toString(),Integer.parseInt(productPrice.getText().toString()),0,productCategory.getText().toString(),productImage.getText().toString());
             this.products.add(productToAdd);
             SendPostRequest(productToAdd);
@@ -87,7 +88,10 @@ public class AddProductAdminActivity extends AppCompatActivity {
         }
 
     }
-
+    /*
+        this function send POST request to the server.
+        the function receive product and sent it to the server and add product in database.
+     */
     public void SendPostRequest(Product prod)
     {
         OkHttpClient client = new OkHttpClient();

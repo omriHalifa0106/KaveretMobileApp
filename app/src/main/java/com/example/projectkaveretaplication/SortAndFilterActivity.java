@@ -52,9 +52,8 @@ public class SortAndFilterActivity extends AppCompatActivity {
                 }
                 else if (!minPrice.getText().toString().isEmpty() || !maxPrice.getText().toString().isEmpty())
                 {
-                    //adapter.getFilterCategory().filter(category_input.getText().toString());
+                    adapter.getFilterCategory().filter(category_input.getText().toString());
                 }
-
 
                 Intent intent = new Intent(SortAndFilterActivity.this,HomeActivity.class);
                 startActivity(intent);
@@ -70,6 +69,7 @@ public class SortAndFilterActivity extends AppCompatActivity {
 
         // Check which radio button was clicked
         switch(view.getId()) {
+            //if the user choose sorting by price from low to high.
             case R.id.low_to_high_price:
                 category_input.setVisibility(View.INVISIBLE);
                 if (checked) {
@@ -81,6 +81,7 @@ public class SortAndFilterActivity extends AppCompatActivity {
                     });
                 }
                     break;
+            //if the user choose sorting by price from high to low.
             case R.id.high_to_low_price:
                 category_input.setVisibility(View.INVISIBLE);
                 if (checked) {
@@ -92,6 +93,7 @@ public class SortAndFilterActivity extends AppCompatActivity {
                     });
                 }
                     break;
+            //if the user choose sorting by name in abc order ascending.
             case R.id.abc_order_ascending:
                 category_input.setVisibility(View.INVISIBLE);
                 if (checked) {
@@ -103,7 +105,7 @@ public class SortAndFilterActivity extends AppCompatActivity {
                     });
                 }
                     break;
-
+            //if the user choose sorting by name in abc order descending.
             case R.id.abc_order_descending:
                 category_input.setVisibility(View.INVISIBLE);
                 if (checked) {
@@ -146,7 +148,7 @@ public class SortAndFilterActivity extends AppCompatActivity {
 
     }
 
-
+    /*
     public void FilteringByCategory()
     {
         ArrayList<Product> products_filtering = new ArrayList<Product>();
@@ -182,7 +184,6 @@ public class SortAndFilterActivity extends AppCompatActivity {
             }
         }
         products = products_filtering;
-
-
     }
+    */
 }

@@ -2,9 +2,13 @@ package com.example.projectkaveretaplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.projectkaveretaplication.ViewHolder.RecyclerViewAdapterLastEntries;
+import com.example.projectkaveretaplication.ViewHolder.RecyclerViewAdapterShowBills;
 import com.example.projectkaveretaplication.classes.Bill;
 
 import org.json.JSONArray;
@@ -24,16 +28,21 @@ import okhttp3.ResponseBody;
 public class ShowBillsAdminActivity extends AppCompatActivity {
 
     private ArrayList<Bill> bills = new ArrayList<Bill>();
-
+    RecyclerViewAdapterShowBills adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_bills_admin);
-        createTable();
+        initBills();
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_last_bills);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new RecyclerViewAdapterShowBills(this, bills);
+        recyclerView.setAdapter(adapter);
     }
 
-
-    private void createTable() {
+    //this function init bills from database after GET request and save it in arraylist of bills.
+    private void initBills() {
         OkHttpClient client = new OkHttpClient();
         String urlGet = "http://10.0.2.2:8080/api/bill";
         System.out.println(urlGet);
@@ -51,9 +60,9 @@ public class ShowBillsAdminActivity extends AppCompatActivity {
 
                 ResponseBody responseBodyCopy = response.peekBody(Long.MAX_VALUE);
                 String billStr = responseBodyCopy.string(); // Gets the list of products in the form of a string built from json
-                System.out.println(billStr.substring(1,billStr.length()-1).replace("\\",""));
+                System.out.println(billStr);
                 try {
-                    JSONArray array_bills = new JSONArray(billStr.substring(1,billStr.length()-1).replace("\\","")); //Creates an array of all products in json form
+                    JSONArray array_bills = new JSONArray(billStr.substring(1,billStr.length()-1).replace("\\","").replaceAll("\"\"", "\"")); //Creates an array of all products in json form
                     /*
                     Runs on the json array of all the bills and for each bill creates an instance of product
                     and puts it in the arraylist of the bills.
@@ -61,7 +70,8 @@ public class ShowBillsAdminActivity extends AppCompatActivity {
                     for(int i=0;i<array_bills.length();i++)
                     {
                         JSONObject bill_json  = array_bills.getJSONObject(i);
-                        Bill bill= new Bill(bill_json.getInt("id"),bill_json.getString("username"),bill_json.getString("Date"),bill_json.getString("items"),bill_json.getInt("Date"));
+                        System.out.println(bill_json.getInt("id"));
+                        Bill bill= new Bill(bill_json.getInt("id"),bill_json.getString("username"),bill_json.getString("Date"),bill_json.getString("items"),bill_json.getInt("sum"));
                         bills.add(bill);
                     }
 

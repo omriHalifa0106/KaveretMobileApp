@@ -27,6 +27,13 @@ import com.example.projectkaveretaplication.databinding.FragmentAdminBinding;
 import com.example.projectkaveretaplication.databinding.FragmentCartBinding;
 
 import java.util.ArrayList;
+/*
+This Fragment appears when the user is manager, and he is presented by manager's permissions that only manager can do:
+1. Add a product.
+2. Watch the final entrances to the application.
+3. Watch the last bills.
+ */
+
 
 public class AdminFragment extends Fragment {
 
@@ -41,6 +48,7 @@ public class AdminFragment extends Fragment {
         binding = FragmentAdminBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        //If the manager chose this, go to the add product page.
         binding.buttonAddProductAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +57,7 @@ public class AdminFragment extends Fragment {
             }
         });
 
+        //If the manager chose this, go to the add product page.
         binding.buttonShowLastBills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +66,7 @@ public class AdminFragment extends Fragment {
             }
         });
 
+        //If the manager chose this, go to the last enters page.
         binding.buttonShowLastEnters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

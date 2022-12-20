@@ -87,7 +87,10 @@ public class EditProductAdminActivity extends AppCompatActivity {
 
 
     }
-
+    /*
+        this function send POST request to the server.
+        the function receive product and sent it to the server and edit product in database.
+     */
     public void SendPostRequest(Product prod)
     {
         OkHttpClient client = new OkHttpClient();

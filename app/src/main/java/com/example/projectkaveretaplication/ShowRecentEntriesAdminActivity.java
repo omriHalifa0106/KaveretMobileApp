@@ -42,6 +42,7 @@ public class ShowRecentEntriesAdminActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    //this function init recent entries from database after GET request and save it in arraylist of entries.
     private void initLastEntries() {
         OkHttpClient client = new OkHttpClient();
         String urlGet = "http://10.0.2.2:8080/api/administrator";
